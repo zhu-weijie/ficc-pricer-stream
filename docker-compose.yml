@@ -1,0 +1,21 @@
+# docker-compose.yml
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  market_data_publisher:
+    build: ./market_data_publisher
+    depends_on:
+      - redis
+
+  pricing_engine:
+    build: ./pricing_engine
+    depends_on:
+      - redis
+
+  risk_client:
+    build: ./risk_client
+    depends_on:
+      - redis
